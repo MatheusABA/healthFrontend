@@ -1,0 +1,29 @@
+.container {
+    margin-top: 64px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input {
+    margin-bottom: 16px;
+}
+
+.button {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.snackbar {
+    background-color: #f44336;
+    color: white;
+}
+
+.link {
+    color: #3f51b5;
+    cursor: pointer;
+    text-decoration: underline;
+}
