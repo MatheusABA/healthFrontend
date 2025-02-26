@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Container, CircularProgress, Snackbar, Grid } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./styles/login.css"; // Importando o CSS
+import "./styles/login.css";
 
 const Login = () => {
     const navigate = useNavigate();

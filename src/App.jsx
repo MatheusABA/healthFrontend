@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import Login from "./pages/auth/Login";
@@ -7,6 +7,7 @@ import Register from "./pages/auth/Register";
 import Dashboard from "././pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Doctors from "./pages/Doctors.jsx";
+import Patients from "./pages/Patients.jsx";
 
 function App() {
     return (
@@ -14,7 +15,6 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Login />} />
-
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
 
@@ -24,6 +24,7 @@ function App() {
 
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/doctors" element={<Doctors />} />
+                        <Route path="/patients" element={<Patients />} />
 
                     </Route>
 

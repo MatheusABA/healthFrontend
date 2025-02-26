@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     AppBar,
     Toolbar,
@@ -23,7 +23,7 @@ const drawerWidth = 240;
 const Dashboard = () => {
 
     const navigate = useNavigate();
-    const [ísLoading, setIsLoading] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const [todayAppointments, setTodayAppointments] = useState([]);
 
     const menuItems = [
@@ -32,13 +32,50 @@ const Dashboard = () => {
         { text: "Doctors", path: "/doctors", icon: <LocalHospital /> }
     ];
 
+
+    const getToken = () => {
+        return localStorage.getItem("token");
+    }
+
+    const getHeaders = () => {
+        return {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            Authorization: `${getToken()}`,
+        }
+    }
+
+    const fetchAppointments = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch("http://localhost:8080/api/v1/doctors", {
+                method: "GET",
+                headers: getHeaders(),
+            });
+
+            if (response.status === 500 || response.status === 401) {
+                navigate("/login");
+
+            }
+
+        } catch (error) {
+            console.error("Error fetching doctors:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+
     const handleLogout = () => {
         localStorage.removeItem("token");
         navigate("/login");
     };
 
     // fetch appointments
+    useEffect(() => {
 
+    }, []);
 
     // check jwt token
 
@@ -72,7 +109,7 @@ const Dashboard = () => {
                 <Toolbar />
                 <List>
                     {menuItems.map((item) => (
-                        <ListItem button key={item.text} onClick={() => navigate(item.path)} sx={{ cursor: "pointer" }}>
+                        <ListItem key={item.text} onClick={() => navigate(item.path)} sx={{ cursor: "pointer" }}>
                             {item.icon}
                             <ListItemText primary={item.text} sx={{ marginLeft: 1 }} />
                         </ListItem>
