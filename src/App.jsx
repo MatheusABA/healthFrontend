@@ -8,6 +8,7 @@ import Dashboard from "././pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Doctors from "./pages/Doctors.jsx";
 import Patients from "./pages/Patients.jsx";
+import Schedules from "./pages/Schedules.jsx";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/doctors" element={<Doctors />} />
                         <Route path="/patients" element={<Patients />} />
+                        <Route path="/schedules" element={<Schedules />} />
 
                     </Route>
 

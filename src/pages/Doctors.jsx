@@ -113,7 +113,7 @@ const Doctors = () => {
 
             <Card sx={{ padding: 3, mb: 3 }}>
                 <Typography variant="h6" mb={2}>Add a New Doctor</Typography>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} >
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField label="Name" name="name" value={formData.name} onChange={handleInputChange} fullWidth required />

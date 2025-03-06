@@ -21,7 +21,9 @@ const Patients = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
-        if (token) getPatients();
+        if (token) {
+            getPatients();
+        }
         else navigate("/login");
     }, [token]);
 
@@ -85,7 +87,13 @@ const Patients = () => {
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
-        filterPatients(value);
+        if (value.length > 0) {
+            filterPatients(value);
+        } else {
+            getPatients();
+        }
+
+
     };
 
 
@@ -95,7 +103,7 @@ const Patients = () => {
             patient.email.toLowerCase().includes(term.toLowerCase()) ||
             patient.phone.includes(term)
         );
-        setFilteredPatients(filtered);
+        setPatients(filtered);
     };
 
 
@@ -103,7 +111,7 @@ const Patients = () => {
         <Container maxWidth="md">
             <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
                 <Typography variant="h4">Manage Patients</Typography>
-                <Button variant="outlined" color="secondary" onClick={() => navigate("/dashboard")}>
+                <Button variant="contained" color="warning" onClick={() => navigate("/dashboard")}>
                     Back to Dashboard
                 </Button>
             </Box>
@@ -111,7 +119,7 @@ const Patients = () => {
             {/* Search Bar */}
             <Box mb={3}>
                 <TextField
-                    label="Search Patient by Name, Email, or Phone"
+                    label="Search Patient"
                     variant="outlined"
                     value={searchTerm}
                     onChange={handleSearchChange}
@@ -167,7 +175,7 @@ const Patients = () => {
                 </Box>
             ) : (
                 <Grid container spacing={2}>
-                    {filteredPatients.map((patient) => (
+                    {patients.map((patient) => (
                         <Grid item xs={12} key={patient.id}>
                             <Card variant="outlined">
                                 <CardContent>

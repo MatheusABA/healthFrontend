@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button, Typography, Container, CircularProgress, Snackbar, Grid } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./styles/login.css";
+import { login } from "../../api/api.js"
 
 const Login = () => {
     const navigate = useNavigate();
@@ -19,33 +20,30 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        const loginData = { email, password };
 
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/login`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password })
-            });
+            const { status, data} = await login(loginData);
 
-            if (response.status === 200) {
-                const data = await response.json();
+
+            if (status === 200) {
                 localStorage.setItem("token", data.token);
-                sessionStorage.setItem("message", "Login successful");
-                navigate(`/dashboard`);
-
+                navigate("/dashboard");
+            } else if (status === 401) {
+                setMessage("Invalid credentials.");
             } else {
                 const data = await response.json();
                 setMessage(data.error || "Invalid credentials, please try again.");
             }
-        } catch (error) {
+
+        } catch(error) {
             setLoading(false);
             setMessage("An error occurred. Please try again.");
         } finally {
             setLoading(false);
         }
-    };
+    }
+
 
     return (
         <Container maxWidth="xs" className="container">
